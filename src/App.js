@@ -1,15 +1,27 @@
 import { useState } from "react";
 import "./App.css";
+import Table from "./Table";
 import { Users } from "./user";
 
 function App() {
   const [query, setQuery] = useState("");
 
-  console.log(
-    Users.filter((user) => user.first_name.toLowerCase().includes("fe"))
-  );
+  // Below search function takes in the data which contains the users array
+  // In the return statement the data which has the users array is filtered, that is, for each item in the data(user array) check the first_name of each user, but first, convert them to lowerCase() and check if they match the values of the state variable.
+
+  // Now to check for other data within the array simply use the || (OR operator) to check for them as well.
+
+  const search = (data) => {
+    return data.filter(
+      (item) =>
+        item.first_name.toLowerCase().includes(query) ||
+        item.last_name.toLowerCase().includes(query) ||
+        item.email.toLowerCase().includes(query)
+    );
+  };
+
   return (
-    <div className="App">
+    <div className="app">
       <h1>React Filter App</h1>
       <input
         type="text"
@@ -18,15 +30,9 @@ function App() {
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      <ul className="list">
-        {Users.filter((user) =>
-          user.first_name.toLowerCase().includes(query)
-        ).map((user) => (
-          <li key={user.id} className="listItem">
-            {user.first_name}
-          </li>
-        ))}
-      </ul>
+      <Table data={search(Users)} />
+
+      {/* In the above, the function (search) is called search(). And the argument (data) that it originally is the Users array which is then passed into the function as an argument.  */}
     </div>
   );
 }
