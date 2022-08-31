@@ -11,12 +11,17 @@ function App() {
 
   // Now to check for other data within the array simply use the || (OR operator) to check for them as well.
 
+  // So, we know that repeating yourself in Javascript should be done to the bearest minimum. So, instead of repeating our code for different parameters. We should instead create an array and pass in the different parameters into the arrays
+
+  // some() ==> checks for query inside each element in the keys array
+
+  const keys = ["first_name", "last_name", "email"];
+
+  console.log();
+
   const search = (data) => {
-    return data.filter(
-      (item) =>
-        item.first_name.toLowerCase().includes(query) ||
-        item.last_name.toLowerCase().includes(query) ||
-        item.email.toLowerCase().includes(query)
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query))
     );
   };
 
